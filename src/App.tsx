@@ -4,6 +4,7 @@ import Banner from './components/Banner'
 import Header from './components/Header'
 import { GlobalCss } from './styles'
 import ProductsList from './components/ProductsList'
+import Footer from './components/Footer'
 
 const routes = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ function App() {
       <div className="container"></div>
       <Header />
       <RouterProvider router={routes} />
+      <Footer />
     </>
   )
 }

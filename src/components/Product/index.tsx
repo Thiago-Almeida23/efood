@@ -1,16 +1,18 @@
 import Button from '../Button'
 
 import { Card, FoodDescription, Title } from './styles'
-import productImage from '../../assets/images/pizza.png'
 
-const Product = () => (
+type Props = {
+  image: string
+  title: string
+  description: string
+}
+
+const Product = ({ image, title, description }: Props) => (
   <Card>
-    <img src={productImage} alt="Nome do Prato" />
-    <Title>Nome do Prato</Title>
-    <FoodDescription>
-      A clássica Marguerita: molho do tomate suculento, mussarela derretida,
-      manjericão fresco e um toque de azeite. Sabor e simplicidade.
-    </FoodDescription>
+    <img src={image} title={title} />
+    <Title>{title}</Title>
+    <FoodDescription>{description}</FoodDescription>
     <Button
       type="button"
       title="Clique aqui para adicionar o pedido ao carrinho"

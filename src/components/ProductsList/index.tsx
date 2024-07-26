@@ -6,12 +6,36 @@ const ProductsList = () => (
   <Container>
     <div className="container">
       <List>
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
+        <Product
+          image="//placehold.it/304x167"
+          title="Nome do prato"
+          description="teste"
+        />
+        <Product
+          image="//placehold.it/304x167"
+          title="Nome do prato"
+          description="teste"
+        />
+        <Product
+          image="//placehold.it/304x167"
+          title="Nome do prato"
+          description="teste"
+        />
+        <Product
+          image="//placehold.it/304x167"
+          title="Nome do prato"
+          description="teste"
+        />
+        <Product
+          image="//placehold.it/304x167"
+          title="Nome do prato"
+          description="teste"
+        />
+        <Product
+          image="//placehold.it/304x167"
+          title="Nome do prato"
+          description="teste"
+        />
       </List>
     </div>
   </Container>

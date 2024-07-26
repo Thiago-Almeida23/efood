@@ -16,7 +16,7 @@ export const GlobalCss = createGlobalStyle`
   }
 
   body {
-    background-color: ${colors.white};
+    background-color: #FFF8F2;
     color: ${colors.salmon};
   }
 

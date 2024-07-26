@@ -3,13 +3,18 @@ import { colors } from '../../styles'
 
 export const HeaderBar = styled.header`
   padding: 24px;
-  padding-bottom: 50px;
+  padding-bottom: 83px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-size: cover;
-  background-repeat: no-repeat;
   background-position: center;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
 
   a {
     color: ${colors.salmon};
@@ -23,7 +28,6 @@ export const Links = styled.ul`
 `
 
 export const LinkItem = styled.li`
-  padding-left: 40px;
   margin-right: 20px;
 `
 
@@ -43,5 +47,4 @@ export const LinkCart = styled.a`
   align-items: center;
   color: ${colors.salmon};
   font-weight: bold;
-  margin-right: 40px;
 `
