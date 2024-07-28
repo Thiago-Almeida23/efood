@@ -1,28 +1,29 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-
 import { colors } from '../../styles'
 
 export const ButtonContainer = styled.button`
   background-color: ${colors.lightSalmon};
   color: ${colors.salmon};
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
-  padding: 10px 0; // Remover o padding lateral
+  padding: 4px 84px;
   border: none;
-  white-space: nowrap; // Evitar quebra de linha
-  text-align: center;
   width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  display: block;
 `
 
 export const ButtonLink = styled(Link)`
-  background-color: ${colors.lightSalmon};
-  color: ${colors.salmon};
-  font-size: 16px;
+  background-color: ${colors.salmon};
+  color: ${colors.lightSalmon};
+  font-size: 14px;
   font-weight: bold;
-  padding: 10px 0;
+  padding: 4px 6px;
   text-decoration: none;
   white-space: nowrap;
   text-align: center;
-  width: 100%;
+  display: inline-block;
+  width: auto;
 `

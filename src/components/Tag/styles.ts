@@ -8,4 +8,5 @@ export const TagContainer = styled.div`
   font-weight: bold;
   padding: 4px 6px;
   display: inline-block;
+  white-space: nowrap;
 `

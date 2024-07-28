@@ -1,16 +1,28 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import Banner from './components/Banner'
+import HomeHeader from './components/HomeHeader'
 import Header from './components/Header'
 import { GlobalCss } from './styles'
+import RestaurantsList from './components/RestaurantsList'
 import ProductsList from './components/ProductsList'
 import Footer from './components/Footer'
+import Banner from './components/Banner'
 
 const routes = createBrowserRouter([
   {
     path: '/',
     element: (
       <>
+        <HomeHeader />
+        <RestaurantsList />
+      </>
+    )
+  },
+  {
+    path: '/restaurant',
+    element: (
+      <>
+        <Header />
         <Banner />
         <ProductsList />
       </>
@@ -22,8 +34,6 @@ function App() {
   return (
     <>
       <GlobalCss />
-      <div className="container"></div>
-      <Header />
       <RouterProvider router={routes} />
       <Footer />
     </>

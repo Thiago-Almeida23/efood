@@ -7,34 +7,34 @@ const ProductsList = () => (
     <div className="container">
       <List>
         <Product
-          image="//placehold.it/304x167"
-          title="Nome do prato"
-          description="teste"
+          image={require('../../assets/images/pizza.png')}
+          title="Pizza Marguerita"
+          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
         />
         <Product
-          image="//placehold.it/304x167"
-          title="Nome do prato"
-          description="teste"
+          image={require('../../assets/images/pizza.png')}
+          title="Pizza Marguerita"
+          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
         />
         <Product
-          image="//placehold.it/304x167"
-          title="Nome do prato"
-          description="teste"
+          image={require('../../assets/images/pizza.png')}
+          title="Pizza Marguerita"
+          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
         />
         <Product
-          image="//placehold.it/304x167"
-          title="Nome do prato"
-          description="teste"
+          image={require('../../assets/images/pizza.png')}
+          title="Pizza Marguerita"
+          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
         />
         <Product
-          image="//placehold.it/304x167"
-          title="Nome do prato"
-          description="teste"
+          image={require('../../assets/images/pizza.png')}
+          title="Pizza Marguerita"
+          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
         />
         <Product
-          image="//placehold.it/304x167"
-          title="Nome do prato"
-          description="teste"
+          image={require('../../assets/images/pizza.png')}
+          title="Pizza Marguerita"
+          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
         />
       </List>
     </div>
