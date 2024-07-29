@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/react-input-mask": "^3.0.5",
     "@types/react-router-hash-link": "^2.4.9",
     "@types/styled-components": "^5.1.26",
