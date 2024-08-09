@@ -29,6 +29,11 @@ export const HeaderTitle = styled.p`
   color: ${colors.salmon};
   font-weight: bold;
   font-size: 36px;
+  line-height: 42px;
   margin-top: 138px;
   margin-bottom: 40px;
+  width: 539px;
+  height: 84px;
+  text-align: center;
+  word-wrap: break-word;
 `

@@ -1,56 +1,43 @@
+import { useEffect, useState } from 'react'
 import Restaurant from '../Restaurant'
+import { Container, List } from './styles' // Certifique-se de manter esses imports
 
-import { Container, List } from './styles'
+type RestaurantData = {
+  id: string
+  titulo: string
+  capa: string
+  descricao: string
+  tipo: string
+  destacado: boolean
+  avaliacao: number
+}
 
-const RestaurantsList = () => (
-  <Container>
-    <div className="container">
+const RestaurantsList = () => {
+  const [restaurants, setRestaurants] = useState<RestaurantData[]>([])
+
+  useEffect(() => {
+    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
+      .then((response) => response.json())
+      .then((data) => setRestaurants(data))
+  }, [])
+
+  return (
+    <Container>
       <List>
-        <Restaurant
-          image={require('../../assets/images/japones.png')}
-          title="Hioki Sushi"
-          description="Peça já o melhor da culinária japonesa, no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!"
-          cuisine="Japonesa"
-          isFeatured={true}
-        />
-        <Restaurant
-          image={require('../../assets/images/italiana.png')}
-          title="La Dolce Vita Trattoria"
-          description="A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça Já!"
-          cuisine="Italiana"
-          isFeatured={false}
-        />
-        <Restaurant
-          image={require('../../assets/images/italiana.png')}
-          title="La Dolce Vita Trattoria"
-          description="A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça Já!"
-          cuisine="Italiana"
-          isFeatured={false}
-        />
-        <Restaurant
-          image={require('../../assets/images/italiana.png')}
-          title="La Dolce Vita Trattoria"
-          description="A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça Já!"
-          cuisine="Italiana"
-          isFeatured={false}
-        />
-        <Restaurant
-          image={require('../../assets/images/italiana.png')}
-          title="La Dolce Vita Trattoria"
-          description="A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça Já!"
-          cuisine="Italiana"
-          isFeatured={false}
-        />
-        <Restaurant
-          image={require('../../assets/images/italiana.png')}
-          title="La Dolce Vita Trattoria"
-          description="A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça Já!"
-          cuisine="Italiana"
-          isFeatured={false}
-        />
+        {restaurants.map((restaurant) => (
+          <Restaurant
+            key={restaurant.id}
+            image={restaurant.capa}
+            title={restaurant.titulo}
+            description={restaurant.descricao}
+            cuisine={restaurant.tipo}
+            isFeatured={restaurant.destacado}
+            rating={restaurant.avaliacao}
+          />
+        ))}
       </List>
-    </div>
-  </Container>
-)
+    </Container>
+  )
+}
 
 export default RestaurantsList

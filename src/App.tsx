@@ -1,32 +1,18 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import HomeHeader from './components/HomeHeader'
-import Header from './components/Header'
 import { GlobalCss } from './styles'
-import RestaurantsList from './components/RestaurantsList'
-import ProductsList from './components/ProductsList'
 import Footer from './components/Footer'
-import Banner from './components/Banner'
+import Home from './pages/Home'
+import RestaurantDetails from './pages/RestaurantDetails'
 
 const routes = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <>
-        <HomeHeader />
-        <RestaurantsList />
-      </>
-    )
+    element: <Home />
   },
   {
     path: '/restaurant',
-    element: (
-      <>
-        <Header />
-        <Banner />
-        <ProductsList />
-      </>
-    )
+    element: <RestaurantDetails />
   }
 ])
 

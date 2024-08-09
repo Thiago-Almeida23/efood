@@ -4,14 +4,15 @@ import { colors } from '../../styles'
 export const Card = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 48px;
   padding: 8px;
   width: 472px;
 `
 
 export const FoodImage = styled.img`
-  width: 100%;
-  height: auto;
+  width: 472px;
+  height: 217px;
+  max-width: 100%;
+  object-fit: cover;
   display: block;
 `
 
@@ -70,6 +71,7 @@ export const FoodDescription = styled.p`
   flex-grow: 1;
   font-size: 14px;
   line-height: 22px;
+  text-align: left;
 `
 
 export const ButtonContainer = styled.div`

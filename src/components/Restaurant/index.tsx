@@ -21,6 +21,7 @@ type Props = {
   description: string
   cuisine: string
   isFeatured: boolean
+  rating: number
 }
 
 const Restaurant = ({
@@ -28,35 +29,45 @@ const Restaurant = ({
   title,
   description,
   cuisine,
-  isFeatured
-}: Props) => (
-  <Card>
-    <div style={{ position: 'relative' }}>
-      <FoodImage src={image} alt={title} />
-      <TagsContainer>
-        {isFeatured && <Tag>Destaque da semana</Tag>}
-        <Tag>{cuisine}</Tag>
-      </TagsContainer>
-    </div>
-    <Content>
-      <TitleRatingContainer>
-        <Title>{title}</Title>
-        <Rating>
-          4.5 <StarImage src={star} alt="star" />
-        </Rating>
-      </TitleRatingContainer>
-      <FoodDescription>{description}</FoodDescription>
-      <ButtonContainer>
-        <Button
-          type="link"
-          title="Clique aqui para ver mais detalhes"
-          to="/restaurant"
-        >
-          Saiba mais
-        </Button>
-      </ButtonContainer>
-    </Content>
-  </Card>
-)
+  isFeatured,
+  rating
+}: Props) => {
+  const getDescription = (description: string) => {
+    if (description.length > 250) {
+      return description.slice(0, 247) + '...'
+    }
+    return description
+  }
+
+  return (
+    <Card>
+      <div style={{ position: 'relative' }}>
+        <FoodImage src={image} alt={title} />
+        <TagsContainer>
+          {isFeatured && <Tag>Destaque da semana</Tag>}
+          <Tag>{cuisine}</Tag>
+        </TagsContainer>
+      </div>
+      <Content>
+        <TitleRatingContainer>
+          <Title>{title}</Title>
+          <Rating>
+            {rating} <StarImage src={star} alt="star" />{' '}
+          </Rating>
+        </TitleRatingContainer>
+        <FoodDescription>{getDescription(description)}</FoodDescription>
+        <ButtonContainer>
+          <Button
+            type="link"
+            title="Clique aqui para ver mais detalhes"
+            to="/restaurant"
+          >
+            Saiba mais
+          </Button>
+        </ButtonContainer>
+      </Content>
+    </Card>
+  )
+}
 
 export default Restaurant
