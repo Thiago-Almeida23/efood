@@ -16,6 +16,7 @@ import {
 } from './styles'
 
 type Props = {
+  id: string
   image: string
   title: string
   description: string
@@ -25,6 +26,7 @@ type Props = {
 }
 
 const Restaurant = ({
+  id,
   image,
   title,
   description,
@@ -60,7 +62,7 @@ const Restaurant = ({
           <Button
             type="link"
             title="Clique aqui para ver mais detalhes"
-            to="/restaurant"
+            to={`/restaurant/${id}`}
           >
             Saiba mais
           </Button>

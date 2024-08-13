@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Button from '../Button'
-import Modal from '../Modal' // Certifique-se de que o caminho está correto
+import Modal from '../Modal'
 import { Card, FoodDescription, Title, ButtonContainer } from './styles'
 
 type Props = {

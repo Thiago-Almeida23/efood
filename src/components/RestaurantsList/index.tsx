@@ -1,24 +1,17 @@
 import { useEffect, useState } from 'react'
 import Restaurant from '../Restaurant'
-import { Container, List } from './styles' // Certifique-se de manter esses imports
-
-type RestaurantData = {
-  id: string
-  titulo: string
-  capa: string
-  descricao: string
-  tipo: string
-  destacado: boolean
-  avaliacao: number
-}
+import { Container, List } from './styles'
+import { fetchRestaurants, RestaurantData } from '../../services/api'
 
 const RestaurantsList = () => {
   const [restaurants, setRestaurants] = useState<RestaurantData[]>([])
 
   useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
-      .then((response) => response.json())
+    fetchRestaurants()
       .then((data) => setRestaurants(data))
+      .catch((error) => {
+        console.error('Erro ao buscar dados dos restaurantes:', error)
+      })
   }, [])
 
   return (
@@ -27,6 +20,7 @@ const RestaurantsList = () => {
         {restaurants.map((restaurant) => (
           <Restaurant
             key={restaurant.id}
+            id={restaurant.id}
             image={restaurant.capa}
             title={restaurant.titulo}
             description={restaurant.descricao}

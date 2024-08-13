@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-
 import { GlobalCss } from './styles'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -11,7 +10,7 @@ const routes = createBrowserRouter([
     element: <Home />
   },
   {
-    path: '/restaurant',
+    path: '/restaurant/:id',
     element: <RestaurantDetails />
   }
 ])
