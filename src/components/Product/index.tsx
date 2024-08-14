@@ -1,12 +1,19 @@
 import { useState } from 'react'
 import Button from '../Button'
 import Modal from '../Modal'
-import { Card, FoodDescription, Title, ButtonContainer } from './styles'
+import { Card, FoodDescription, Title, ButtonContainer, Image } from './styles'
 
 type Props = {
   image: string
   title: string
   description: string
+}
+
+const getDescription = (description: string) => {
+  if (description.length > 130) {
+    return description.slice(0, 127) + '...'
+  }
+  return description
 }
 
 const Product = ({ image, title, description }: Props) => {
@@ -18,9 +25,9 @@ const Product = ({ image, title, description }: Props) => {
   return (
     <>
       <Card onClick={handleOpenModal}>
-        <img src={image} title={title} />
+        <Image src={image} alt={title} />
         <Title>{title}</Title>
-        <FoodDescription>{description}</FoodDescription>
+        <FoodDescription>{getDescription(description)}</FoodDescription>
         <ButtonContainer>
           <Button
             type="button"

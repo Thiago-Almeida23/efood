@@ -1,41 +1,23 @@
 import Product from '../Product'
-
 import { Container, List } from './styles'
+import { MenuItem } from '../../services/api'
 
-const ProductsList = () => (
+type Props = {
+  menuItems: MenuItem[]
+}
+
+const ProductsList = ({ menuItems }: Props) => (
   <Container>
     <div className="container">
       <List>
-        <Product
-          image={require('../../assets/images/pizza.png')}
-          title="Pizza Marguerita"
-          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
-        />
-        <Product
-          image={require('../../assets/images/pizza.png')}
-          title="Pizza Marguerita"
-          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
-        />
-        <Product
-          image={require('../../assets/images/pizza.png')}
-          title="Pizza Marguerita"
-          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
-        />
-        <Product
-          image={require('../../assets/images/pizza.png')}
-          title="Pizza Marguerita"
-          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
-        />
-        <Product
-          image={require('../../assets/images/pizza.png')}
-          title="Pizza Marguerita"
-          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
-        />
-        <Product
-          image={require('../../assets/images/pizza.png')}
-          title="Pizza Marguerita"
-          description="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
-        />
+        {menuItems.map((product) => (
+          <Product
+            key={product.id}
+            image={product.foto}
+            title={product.nome}
+            description={product.descricao}
+          />
+        ))}
       </List>
     </div>
   </Container>

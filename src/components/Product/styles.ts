@@ -6,7 +6,7 @@ export const Card = styled.div`
   padding: 10px;
   margin-bottom: 32px;
   position: relative;
-  height: 350px;
+  height: 350px; /* Pode ajustar conforme necessário */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -45,4 +45,12 @@ export const ButtonContainer = styled.div`
     border: none;
     text-align: center;
   }
+`
+
+// Adicione o estilo para a imagem
+export const Image = styled.img`
+  width: 304px;
+  height: 167px;
+  object-fit: cover; /* Isso vai garantir que a imagem se ajuste corretamente sem distorção */
+  margin-bottom: 10px; /* Espaço abaixo da imagem, se necessário */
 `

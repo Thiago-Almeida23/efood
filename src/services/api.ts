@@ -1,11 +1,21 @@
+export interface MenuItem {
+  foto: string
+  preco: number
+  id: number
+  nome: string
+  descricao: string
+  porcao: string
+}
+
 export interface RestaurantData {
-  id: string
+  id: number
   titulo: string
   capa: string
   descricao: string
   tipo: string
   destacado: boolean
   avaliacao: number
+  cardapio: MenuItem[]
 }
 
 export const fetchRestaurants = async (): Promise<RestaurantData[]> => {

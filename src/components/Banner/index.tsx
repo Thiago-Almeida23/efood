@@ -12,14 +12,10 @@ const Banner = () => {
       try {
         const data = await fetchRestaurants()
         const restaurantData = data.find((r) => r.id.toString() === id)
-
-        if (restaurantData) {
-          setRestaurant(restaurantData)
-        } else {
-          setRestaurant(null)
-        }
+        setRestaurant(restaurantData || null)
       } catch (error) {
-        console.error('Error fetching restaurants:', error)
+        console.error('Error fetching restaurant:', error)
+        setRestaurant(null)
       }
     }
 
@@ -33,6 +29,7 @@ const Banner = () => {
   }
 
   const { capa, tipo, titulo } = restaurant
+
   if (!capa || !tipo || !titulo) {
     return <p>Data missing...</p>
   }
