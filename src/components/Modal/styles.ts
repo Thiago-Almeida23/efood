@@ -65,6 +65,14 @@ export const Description = styled.p`
   font-weight: 400;
   line-height: 22px;
   margin-bottom: 16px;
+  white-space: pre-line; /* Mantém quebras de linha */
+`
+
+export const Portion = styled.p`
+  color: ${colors.white};
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 16px;
 `
 
 export const Button = styled.button`

@@ -7,15 +7,16 @@ import {
   Name,
   Description,
   Button,
-  Content
+  Content,
+  Portion
 } from './styles'
-import pizzaImg from '../../assets/images/pizza.png'
 
 type ItemProps = {
   image: string
   name: string
   description: string
   price: string
+  portion: string
 }
 
 type Props = {
@@ -42,10 +43,13 @@ const ProductModal: React.FC<Props> = ({ isOpen, onClose, item }) => {
     <ModalContainer>
       <ModalContent>
         <CloseButton onClick={onClose} />
-        <Image src={pizzaImg} alt={item.name} />
+        <Image src={item.image} alt={item.name} />
         <Content>
           <Name>{item.name}</Name>
-          <Description>{item.description}</Description>
+          <Description>
+            {item.description}
+            <Portion>Serve: {item.portion}</Portion>
+          </Description>
           <Button>Adicionar ao carrinho - {item.price}</Button>
         </Content>
       </ModalContent>

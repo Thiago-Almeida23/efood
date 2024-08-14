@@ -16,6 +16,8 @@ const ProductsList = ({ menuItems }: Props) => (
             image={product.foto}
             title={product.nome}
             description={product.descricao}
+            price={product.preco.toString()}
+            portion={product.porcao}
           />
         ))}
       </List>

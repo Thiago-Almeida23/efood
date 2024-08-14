@@ -7,6 +7,8 @@ type Props = {
   image: string
   title: string
   description: string
+  price: string
+  portion: string // Incluindo portion aqui
 }
 
 const getDescription = (description: string) => {
@@ -16,7 +18,16 @@ const getDescription = (description: string) => {
   return description
 }
 
-const Product = ({ image, title, description }: Props) => {
+const formatPrice = (price: string) => {
+  const parsedPrice = parseFloat(price)
+  return parsedPrice.toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    style: 'currency',
+    currency: 'BRL'
+  })
+}
+
+const Product = ({ image, title, description, price, portion }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleOpenModal = () => setIsModalOpen(true)
@@ -44,7 +55,8 @@ const Product = ({ image, title, description }: Props) => {
           image,
           name: title,
           description,
-          price: 'R$ 60,90'
+          price: formatPrice(price),
+          portion
         }}
       />
     </>
