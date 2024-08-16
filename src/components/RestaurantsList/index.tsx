@@ -16,20 +16,22 @@ const RestaurantsList = () => {
 
   return (
     <Container>
-      <List>
-        {restaurants.map((restaurant) => (
-          <Restaurant
-            key={restaurant.id}
-            id={restaurant.id}
-            image={restaurant.capa}
-            title={restaurant.titulo}
-            description={restaurant.descricao}
-            cuisine={restaurant.tipo}
-            isFeatured={restaurant.destacado}
-            rating={restaurant.avaliacao}
-          />
-        ))}
-      </List>
+      <div className="container">
+        <List>
+          {restaurants.map((restaurant) => (
+            <Restaurant
+              key={restaurant.id}
+              id={restaurant.id}
+              image={restaurant.capa}
+              title={restaurant.titulo}
+              description={restaurant.descricao}
+              cuisine={restaurant.tipo}
+              isFeatured={restaurant.destacado}
+              rating={restaurant.avaliacao}
+            />
+          ))}
+        </List>
+      </div>
     </Container>
   )
 }

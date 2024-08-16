@@ -6,7 +6,7 @@ export const Card = styled.div`
   padding: 10px;
   margin-bottom: 32px;
   position: relative;
-  height: 350px; /* Pode ajustar conforme necessário */
+  height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
