@@ -19,12 +19,11 @@ export const ModalContainer = styled.div`
 export const ModalContent = styled.div`
   background-color: ${colors.salmon};
   padding: 32px;
-  margin-left: 171px;
-  margin-right: 171px;
   position: relative;
   display: flex;
   align-items: flex-start;
-  width: auto;
+  width: 100%;
+  max-width: 1024px;
 `
 
 export const CloseButton = styled.button`
