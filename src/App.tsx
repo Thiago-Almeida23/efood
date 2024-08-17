@@ -1,27 +1,17 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { RouterProvider } from 'react-router-dom'
 import { GlobalCss } from './styles'
 import Footer from './components/Footer'
-import Home from './pages/Home'
-import RestaurantDetails from './pages/RestaurantDetails'
-
-const routes = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />
-  },
-  {
-    path: '/restaurant/:id',
-    element: <RestaurantDetails />
-  }
-])
+import routes from './routes'
+import { store } from './store'
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <GlobalCss />
       <RouterProvider router={routes} />
       <Footer />
-    </>
+    </Provider>
   )
 }
 
