@@ -1,14 +1,52 @@
-import { configureStore } from '@reduxjs/toolkit'
-// Importar os reducers aqui, conforme necessário
-// Exemplo: import cartReducer from '../reducers/cart'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { MenuItem } from '../services/api'
 
-export const store = configureStore({
-  reducer: {
-    // Adicionar os reducers aqui
-    // Exemplo: cart: cartReducer,
+type CartState = {
+  items: MenuItem[]
+  totalItems: number
+  totalValue: number
+  isOpen: boolean
+}
+
+const initialState: CartState = {
+  items: [],
+  totalItems: 0,
+  totalValue: 0,
+  isOpen: false
+}
+
+const cartSlice = createSlice({
+  name: 'cart',
+  initialState,
+  reducers: {
+    add: (state, action: PayloadAction<MenuItem>) => {
+      state.items.push(action.payload)
+      state.totalItems += 1
+      state.totalValue += action.payload.preco
+    },
+    open: (state) => {
+      state.isOpen = true
+    },
+    close: (state) => {
+      state.isOpen = false
+    },
+    removeItem: (state, action: PayloadAction<number>) => {
+      const itemToRemove = state.items.find(
+        (item) => item.id === action.payload
+      )
+      if (itemToRemove) {
+        state.items = state.items.filter((item) => item.id !== action.payload)
+        state.totalItems -= 1
+        state.totalValue -= itemToRemove.preco
+      }
+    },
+    clearCart: (state) => {
+      state.items = []
+      state.totalItems = 0
+      state.totalValue = 0
+    }
   }
 })
 
-// Tipagem do Redux store e da aplicação
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export const { add, open, close, removeItem, clearCart } = cartSlice.actions
+export default cartSlice.reducer

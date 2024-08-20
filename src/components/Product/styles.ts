@@ -47,10 +47,9 @@ export const ButtonContainer = styled.div`
   }
 `
 
-// Adicione o estilo para a imagem
 export const Image = styled.img`
   width: 304px;
   height: 167px;
-  object-fit: cover; /* Isso vai garantir que a imagem se ajuste corretamente sem distorção */
-  margin-bottom: 10px; /* Espaço abaixo da imagem, se necessário */
+  object-fit: cover;
+  margin-bottom: 10px;
 `

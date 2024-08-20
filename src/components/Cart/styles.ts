@@ -1,40 +1,41 @@
 import styled from 'styled-components'
 import { colors } from '../../styles'
 import remove from '../../assets/images/lixeira.png'
-import { ButtonContainer } from '../Button/styles'
 
 export const Overlay = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: #000;
   opacity: 0.7;
+  z-index: 1;
 `
 
 export const CartContainer = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
+  width: 360px;
   height: 100%;
-  display: flex;
+  display: none;
   justify-content: flex-end;
-  z-index: 1;
+  z-index: 2;
+
+  &.is-open {
+    display: flex;
+  }
 `
 
 export const Sidebar = styled.aside`
   background-color: ${colors.salmon};
-  z-index: 1;
+  z-index: 2;
   padding: 32px 8px 0 8px;
-  max-width: 360px;
   width: 100%;
-
-  ${ButtonContainer} {
-    max-width: 100%;
-    width: 100%;
-  }
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
 `
 
 export const TotalValue = styled.p`
@@ -43,6 +44,13 @@ export const TotalValue = styled.p`
   color: ${colors.white};
   margin-top: 40px;
   margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    margin-left: auto;
+  }
 `
 
 export const CartItem = styled.li`
@@ -50,6 +58,7 @@ export const CartItem = styled.li`
   padding: 8px 0;
   position: relative;
   background-color: ${colors.lightSalmon};
+  margin-bottom: 8px;
 
   img {
     height: 80px;
@@ -77,12 +86,11 @@ export const CartItem = styled.li`
     background-image: url(${remove});
     background-color: transparent;
     position: absolute;
-    top: 76px;
-    right: 0;
-    margin-botton: 8px;
-    margin-right: 8px;
+    bottom: 8px;
+    right: 8px;
     width: 16px;
     height: 16px;
     border: none;
+    cursor: pointer;
   }
 `

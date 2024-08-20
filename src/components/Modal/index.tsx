@@ -17,15 +17,22 @@ type ItemProps = {
   description: string
   price: string
   portion: string
+  id: number
 }
 
 type Props = {
   isOpen: boolean
   onClose: () => void
   item: ItemProps
+  onAddToCart: () => void
 }
 
-const ProductModal: React.FC<Props> = ({ isOpen, onClose, item }) => {
+const ProductModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  item,
+  onAddToCart
+}) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -50,7 +57,9 @@ const ProductModal: React.FC<Props> = ({ isOpen, onClose, item }) => {
             {item.description}
             <Portion>Serve: {item.portion}</Portion>
           </Description>
-          <Button>Adicionar ao carrinho - {item.price}</Button>
+          <Button onClick={onAddToCart}>
+            Adicionar ao carrinho - {item.price}
+          </Button>
         </Content>
       </ModalContent>
     </ModalContainer>

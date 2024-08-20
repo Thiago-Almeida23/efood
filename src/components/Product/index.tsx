@@ -1,14 +1,19 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { add, open } from '../../reducers/cartSlice'
 import Button from '../Button'
 import Modal from '../Modal'
 import { Card, FoodDescription, Title, ButtonContainer, Image } from './styles'
+import { MenuItem } from '../../services/api'
+import { RootState } from '../../store'
 
 type Props = {
   image: string
   title: string
   description: string
   price: string
-  portion: string // Incluindo portion aqui
+  portion: string
+  id: number
 }
 
 const getDescription = (description: string) => {
@@ -27,11 +32,36 @@ const formatPrice = (price: string) => {
   })
 }
 
-const Product = ({ image, title, description, price, portion }: Props) => {
+const Product = ({ image, title, description, price, portion, id }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const dispatch = useDispatch()
+  const cartItems = useSelector((state: RootState) => state.cart.items)
 
   const handleOpenModal = () => setIsModalOpen(true)
   const handleCloseModal = () => setIsModalOpen(false)
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation()
+
+    const itemExists = cartItems.some((item) => item.id === id)
+
+    if (itemExists) {
+      alert('Este item já está no carrinho.')
+      return
+    }
+
+    dispatch(
+      add({
+        id,
+        foto: image,
+        nome: title,
+        descricao: description,
+        preco: parseFloat(price),
+        porcao: portion
+      } as MenuItem)
+    )
+    dispatch(open())
+  }
 
   return (
     <>
@@ -43,6 +73,7 @@ const Product = ({ image, title, description, price, portion }: Props) => {
           <Button
             type="button"
             title="Clique aqui para adicionar o pedido ao carrinho"
+            onClick={handleAddToCart}
           >
             Adicionar ao carrinho
           </Button>
@@ -56,7 +87,25 @@ const Product = ({ image, title, description, price, portion }: Props) => {
           name: title,
           description,
           price: formatPrice(price),
-          portion
+          portion,
+          id
+        }}
+        onAddToCart={() => {
+          const itemExists = cartItems.some((item) => item.id === id)
+          if (!itemExists) {
+            dispatch(
+              add({
+                id,
+                foto: image,
+                nome: title,
+                descricao: description,
+                preco: parseFloat(price),
+                porcao: portion
+              } as MenuItem)
+            )
+            dispatch(open())
+          }
+          handleCloseModal()
         }}
       />
     </>
