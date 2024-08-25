@@ -2,7 +2,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home'
 import RestaurantDetails from './pages/RestaurantDetails'
 
-// Definindo as rotas do aplicativo
 const routes = createBrowserRouter([
   {
     path: '/',

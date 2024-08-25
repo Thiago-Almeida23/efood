@@ -3,7 +3,8 @@ import { createGlobalStyle } from 'styled-components'
 export const colors = {
   white: '#FFF8F2',
   lightSalmon: '#FFEBD9',
-  salmon: '#E66767'
+  salmon: '#E66767',
+  almostBlack: '#4B4B4B'
 }
 
 export const GlobalCss = createGlobalStyle`
