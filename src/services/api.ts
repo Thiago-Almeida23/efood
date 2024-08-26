@@ -31,9 +31,22 @@ export interface DeliveryData {
   address: Address
 }
 
+export interface PaymentData {
+  card: {
+    name: string
+    number: string
+    code: number
+    expires: {
+      month: number
+      year: number
+    }
+  }
+}
+
 export interface CheckoutData {
   products: { id: number; price: number }[]
   delivery: DeliveryData
+  payment: PaymentData // Adiciona as informações de pagamento
 }
 
 export const fetchRestaurants = async (): Promise<RestaurantData[]> => {
