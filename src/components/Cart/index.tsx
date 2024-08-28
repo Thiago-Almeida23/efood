@@ -75,7 +75,7 @@ const Cart = () => {
                 title="Clique aqui para continuar com a compra"
                 onClick={handleCheckout}
               >
-                Continuar com o pagamento
+                Continuar com a entrega
               </Button>
             </>
           )}

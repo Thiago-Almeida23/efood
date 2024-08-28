@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from '../Button'
 import {
@@ -11,7 +11,6 @@ import {
 } from './styles'
 import { close } from '../../reducers/cartSlice'
 import { RootState } from '../../store'
-import { fetchCheckout, DeliveryData } from '../../services/api'
 import Payment from '../Payment'
 
 type CheckoutProps = {
@@ -22,21 +21,17 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
   const dispatch = useDispatch()
   const isOpen = useSelector((state: RootState) => state.cart.isOpen)
 
-  const [deliveryData, setDeliveryData] = useState<DeliveryData | null>(null)
   const [isPayment, setIsPayment] = useState(false)
 
-  useEffect(() => {
-    const loadCheckoutData = async () => {
-      try {
-        const data = await fetchCheckout()
-        setDeliveryData(data.delivery)
-      } catch (error) {
-        console.error('Erro ao buscar os dados da API:', error)
-      }
-    }
-
-    loadCheckoutData()
-  }, [])
+  // State to hold delivery information
+  const [deliveryInfo, setDeliveryInfo] = useState({
+    receiver: '',
+    address: '',
+    city: '',
+    zipCode: '',
+    addressNumber: '',
+    complement: ''
+  })
 
   const closeCheckout = () => {
     dispatch(close())
@@ -50,28 +45,34 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
     setIsPayment(false)
   }
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target
+    setDeliveryInfo((prevInfo) => ({
+      ...prevInfo,
+      [id]: value
+    }))
+  }
+
   return (
     <CheckoutContainer className={isOpen ? 'is-open' : ''}>
       <Overlay onClick={closeCheckout} />
       <Sidebar>
         {isPayment ? (
-          <Payment onBackToCheckout={handleBackToCheckout} />
+          <Payment
+            onBackToCheckout={handleBackToCheckout}
+            deliveryInfo={deliveryInfo}
+          />
         ) : (
           <>
             <h3>Entrega</h3>
             <Form>
               <FormGroup>
-                <label htmlFor="fullName">Quem irá receber</label>
+                <label htmlFor="receiver">Quem irá receber</label>
                 <input
-                  id="fullName"
+                  id="receiver"
                   type="text"
-                  value={deliveryData?.receiver || ''}
-                  onChange={(e) =>
-                    setDeliveryData({
-                      ...deliveryData,
-                      receiver: e.target.value
-                    } as DeliveryData)
-                  }
+                  value={deliveryInfo.receiver}
+                  onChange={handleInputChange}
                 />
               </FormGroup>
               <FormGroup>
@@ -79,16 +80,8 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
                 <input
                   id="address"
                   type="text"
-                  value={deliveryData?.address.description || ''}
-                  onChange={(e) =>
-                    setDeliveryData({
-                      ...deliveryData,
-                      address: {
-                        ...deliveryData?.address,
-                        description: e.target.value
-                      }
-                    } as DeliveryData)
-                  }
+                  value={deliveryInfo.address}
+                  onChange={handleInputChange}
                 />
               </FormGroup>
               <FormGroup>
@@ -96,16 +89,8 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
                 <input
                   id="city"
                   type="text"
-                  value={deliveryData?.address.city || ''}
-                  onChange={(e) =>
-                    setDeliveryData({
-                      ...deliveryData,
-                      address: {
-                        ...deliveryData?.address,
-                        city: e.target.value
-                      }
-                    } as DeliveryData)
-                  }
+                  value={deliveryInfo.city}
+                  onChange={handleInputChange}
                 />
               </FormGroup>
               <InputRow>
@@ -114,16 +99,8 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
                   <input
                     id="zipCode"
                     type="text"
-                    value={deliveryData?.address.zipCode || ''}
-                    onChange={(e) =>
-                      setDeliveryData({
-                        ...deliveryData,
-                        address: {
-                          ...deliveryData?.address,
-                          zipCode: e.target.value
-                        }
-                      } as DeliveryData)
-                    }
+                    value={deliveryInfo.zipCode}
+                    onChange={handleInputChange}
                   />
                 </FormGroup>
                 <FormGroup>
@@ -131,16 +108,8 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
                   <input
                     id="addressNumber"
                     type="number"
-                    value={deliveryData?.address.number || ''}
-                    onChange={(e) =>
-                      setDeliveryData({
-                        ...deliveryData,
-                        address: {
-                          ...deliveryData?.address,
-                          number: Number(e.target.value)
-                        }
-                      } as DeliveryData)
-                    }
+                    value={deliveryInfo.addressNumber}
+                    onChange={handleInputChange}
                   />
                 </FormGroup>
               </InputRow>
@@ -149,16 +118,8 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
                 <input
                   id="complement"
                   type="text"
-                  value={deliveryData?.address.complement || ''}
-                  onChange={(e) =>
-                    setDeliveryData({
-                      ...deliveryData,
-                      address: {
-                        ...deliveryData?.address,
-                        complement: e.target.value
-                      }
-                    } as DeliveryData)
-                  }
+                  value={deliveryInfo.complement}
+                  onChange={handleInputChange}
                 />
               </FormGroup>
             </Form>

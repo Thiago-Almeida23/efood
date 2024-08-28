@@ -1,3 +1,5 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
 export interface MenuItem {
   foto: string
   preco: number
@@ -18,35 +20,34 @@ export interface RestaurantData {
   cardapio: MenuItem[]
 }
 
-export interface Address {
-  description: string
-  city: string
-  zipCode: string
-  number: number
-  complement: string
+type Product = {
+  id: number
+  price: number
 }
 
-export interface DeliveryData {
-  receiver: string
-  address: Address
-}
-
-export interface PaymentData {
-  card: {
-    name: string
-    number: string
-    code: number
-    expires: {
-      month: number
-      year: number
+type PurchasePayload = {
+  products: Product[]
+  delivery: {
+    receiver: string
+    address: {
+      description: string
+      city: string
+      zipCode: string
+      number: number
+      complement?: string
     }
   }
-}
-
-export interface CheckoutData {
-  products: { id: number; price: number }[]
-  delivery: DeliveryData
-  payment: PaymentData // Adiciona as informações de pagamento
+  payment: {
+    card: {
+      name: string
+      number: string
+      code: number
+      expires: {
+        month: number
+        year: number
+      }
+    }
+  }
 }
 
 export const fetchRestaurants = async (): Promise<RestaurantData[]> => {
@@ -62,11 +63,20 @@ export const fetchRestaurants = async (): Promise<RestaurantData[]> => {
   throw new Error('Dados da API não estão no formato esperado')
 }
 
-export const fetchCheckout = async (): Promise<CheckoutData> => {
-  const response = await fetch(
-    'https://fake-api-tau.vercel.app/api/efood/checkout'
-  )
-  const data = await response.json()
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://fake-api-tau.vercel.app/api/efood/'
+  }),
+  endpoints: (builder) => ({
+    purchase: builder.mutation<unknown, PurchasePayload>({
+      query: (body) => ({
+        url: 'checkout',
+        method: 'POST',
+        body
+      })
+    })
+  })
+})
 
-  return data as CheckoutData
-}
+export const { usePurchaseMutation } = api

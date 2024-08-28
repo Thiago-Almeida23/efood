@@ -6,13 +6,15 @@ type CartState = {
   totalItems: number
   totalValue: number
   isOpen: boolean
+  isOrderConfirmed: boolean // Novo estado para controle da confirmação
 }
 
 const initialState: CartState = {
   items: [],
   totalItems: 0,
   totalValue: 0,
-  isOpen: false
+  isOpen: false,
+  isOrderConfirmed: false // Inicialmente falso
 }
 
 const cartSlice = createSlice({
@@ -23,6 +25,7 @@ const cartSlice = createSlice({
       state.items.push(action.payload)
       state.totalItems += 1
       state.totalValue += action.payload.preco
+      state.isOrderConfirmed = false // Garantir que a confirmação não apareça ao adicionar um item
     },
     open: (state) => {
       state.isOpen = true
@@ -44,6 +47,7 @@ const cartSlice = createSlice({
       state.items = []
       state.totalItems = 0
       state.totalValue = 0
+      state.isOrderConfirmed = true
     }
   }
 })

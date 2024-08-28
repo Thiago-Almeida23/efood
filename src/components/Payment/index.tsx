@@ -1,16 +1,24 @@
-import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { fetchCheckout, PaymentData } from '../../services/api'
 import { CardInputRow, FormGroup, InputRow } from './styles'
 import Button from '../Button'
 import { RootState } from '../../store'
+import { usePurchaseMutation } from '../../services/api'
+import Confirmation from '../Confirmation'
+import { useState, useEffect } from 'react'
 
 type PaymentProps = {
   onBackToCheckout: () => void
+  deliveryInfo: {
+    receiver: string
+    address: string
+    city: string
+    zipCode: string
+    addressNumber: string
+    complement: string
+  }
 }
 
-const Payment = ({ onBackToCheckout }: PaymentProps) => {
-  const [paymentData, setPaymentData] = useState<PaymentData | null>(null)
+const Payment = ({ onBackToCheckout, deliveryInfo }: PaymentProps) => {
   const items = useSelector((state: RootState) => state.cart.items)
 
   const totalValue = items
@@ -21,144 +29,99 @@ const Payment = ({ onBackToCheckout }: PaymentProps) => {
       currency: 'BRL'
     })
 
-  useEffect(() => {
-    const loadPaymentData = async () => {
-      try {
-        const data = await fetchCheckout()
-        setPaymentData(data.payment)
-      } catch (error) {
-        console.error('Erro ao carregar dados de pagamento:', error)
+  const [purchase, { isSuccess }] = usePurchaseMutation()
+  const [showConfirmation, setShowConfirmation] = useState(false)
+
+  const handleFinalizePayment = () => {
+    const products = items.map((item) => ({
+      id: item.id,
+      price: item.preco
+    }))
+
+    const paymentData = {
+      card: {
+        name: 'Nome no Cartão',
+        number: 'Número do Cartão',
+        code: 123,
+        expires: {
+          month: 12,
+          year: 2025
+        }
       }
     }
 
-    loadPaymentData()
-  }, [])
+    const purchasePayload = {
+      products,
+      delivery: {
+        receiver: deliveryInfo.receiver,
+        address: {
+          description: deliveryInfo.address,
+          city: deliveryInfo.city,
+          zipCode: deliveryInfo.zipCode,
+          number: Number(deliveryInfo.addressNumber),
+          complement: deliveryInfo.complement
+        }
+      },
+      payment: paymentData
+    }
+
+    purchase(purchasePayload)
+  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      setShowConfirmation(true)
+    }
+  }, [isSuccess])
 
   return (
-    <form>
-      <h3>Pagamento - Valor a pagar {totalValue}</h3>
-      <FormGroup>
-        <label htmlFor="name">Nome no cartão</label>
-        <input
-          id="name"
-          type="text"
-          value={paymentData?.card.name || ''}
-          onChange={(e) => {
-            if (paymentData) {
-              setPaymentData({
-                ...paymentData,
-                card: {
-                  ...paymentData.card,
-                  name: e.target.value
-                }
-              })
-            }
-          }}
-        />
-      </FormGroup>
-      <CardInputRow>
-        <FormGroup>
-          <label htmlFor="number">Número do cartão</label>
-          <input
-            id="number"
-            type="text"
-            className="card-number"
-            value={paymentData?.card.number || ''}
-            onChange={(e) => {
-              if (paymentData) {
-                setPaymentData({
-                  ...paymentData,
-                  card: {
-                    ...paymentData.card,
-                    number: e.target.value
-                  }
-                })
-              }
-            }}
-          />
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="code">CVV</label>
-          <input
-            id="code"
-            type="text"
-            className="card-cvv"
-            value={paymentData?.card.code || ''}
-            onChange={(e) => {
-              if (paymentData) {
-                setPaymentData({
-                  ...paymentData,
-                  card: {
-                    ...paymentData.card,
-                    code: Number(e.target.value)
-                  }
-                })
-              }
-            }}
-          />
-        </FormGroup>
-      </CardInputRow>
-      <InputRow>
-        <FormGroup>
-          <label htmlFor="expiresMonth">Mês de vencimento</label>
-          <input
-            id="expiresMonth"
-            type="text"
-            value={paymentData?.card.expires.month || ''}
-            onChange={(e) => {
-              if (paymentData) {
-                setPaymentData({
-                  ...paymentData,
-                  card: {
-                    ...paymentData.card,
-                    expires: {
-                      ...paymentData.card.expires,
-                      month: Number(e.target.value)
-                    }
-                  }
-                })
-              }
-            }}
-          />
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="expiresYear">Ano de vencimento</label>
-          <input
-            id="expiresYear"
-            type="text"
-            value={paymentData?.card.expires.year || ''}
-            onChange={(e) => {
-              if (paymentData) {
-                setPaymentData({
-                  ...paymentData,
-                  card: {
-                    ...paymentData.card,
-                    expires: {
-                      ...paymentData.card.expires,
-                      year: Number(e.target.value)
-                    }
-                  }
-                })
-              }
-            }}
-          />
-        </FormGroup>
-      </InputRow>
-      <Button
-        type="button"
-        title="Clique aqui para avançar com a operação"
-        onClick={onBackToCheckout}
-      >
-        Finalizar pagamento
-      </Button>
-      <Button
-        type="button"
-        title="Clique aqui para retornar ao Checkout"
-        onClick={onBackToCheckout}
-      >
-        Voltar para a edição de endereço
-      </Button>
-    </form>
+    <>
+      {showConfirmation ? (
+        <Confirmation orderId={12345} />
+      ) : (
+        <form>
+          <h3>Pagamento - Valor a pagar {totalValue}</h3>
+          <FormGroup>
+            <label htmlFor="name">Nome no cartão</label>
+            <input id="name" type="text" />
+          </FormGroup>
+          <CardInputRow>
+            <FormGroup>
+              <label htmlFor="number">Número do cartão</label>
+              <input id="number" type="text" className="card-number" />
+            </FormGroup>
+            <FormGroup>
+              <label htmlFor="code">CVV</label>
+              <input id="code" type="text" className="card-cvv" />
+            </FormGroup>
+          </CardInputRow>
+          <InputRow>
+            <FormGroup>
+              <label htmlFor="expiresMonth">Mês de vencimento</label>
+              <input id="expiresMonth" type="text" />
+            </FormGroup>
+            <FormGroup>
+              <label htmlFor="expiresYear">Ano de vencimento</label>
+              <input id="expiresYear" type="text" />
+            </FormGroup>
+          </InputRow>
+          <Button
+            type="button"
+            title="Clique aqui para avançar com a operação"
+            onClick={handleFinalizePayment}
+          >
+            Finalizar pagamento
+          </Button>
+          <Button
+            type="button"
+            title="Clique aqui para retornar ao Checkout"
+            onClick={onBackToCheckout}
+          >
+            Voltar para a edição de endereço
+          </Button>
+        </form>
+      )}
+    </>
   )
 }
 

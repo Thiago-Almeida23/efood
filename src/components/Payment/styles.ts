@@ -15,7 +15,7 @@ export const Overlay = styled.div`
 export const PaymentContainer = styled.div`
   padding: 32px;
   background-color: ${colors.salmon};
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,11 +62,11 @@ export const FormGroup = styled.div`
   }
 
   .card-number {
-    width: calc(115%); /* Ajuste o valor conforme necessário */
+    width: calc(115%);
   }
 
   .card-cvv {
-    width: 90px; /* Ajuste a largura conforme necessário */
+    width: 90px;
   }
 `
 
