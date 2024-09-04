@@ -23,7 +23,6 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
 
   const [isPayment, setIsPayment] = useState(false)
 
-  // State to hold delivery information
   const [deliveryInfo, setDeliveryInfo] = useState({
     receiver: '',
     address: '',
@@ -38,7 +37,29 @@ const Checkout = ({ onBackToCart }: CheckoutProps) => {
   }
 
   const handleProceedToPayment = () => {
-    setIsPayment(true)
+    if (validateFields()) {
+      setIsPayment(true)
+    }
+  }
+
+  const validateFields = () => {
+    const requiredFields = [
+      'receiver',
+      'address',
+      'city',
+      'zipCode',
+      'addressNumber'
+    ]
+    const emptyFields = requiredFields.filter(
+      (field) => !deliveryInfo[field as keyof typeof deliveryInfo]
+    )
+
+    if (emptyFields.length > 0) {
+      alert('Preencha todos os campos obrigatórios.')
+      return false
+    }
+
+    return true
   }
 
   const handleBackToCheckout = () => {

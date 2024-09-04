@@ -6,7 +6,7 @@ type CartState = {
   totalItems: number
   totalValue: number
   isOpen: boolean
-  isOrderConfirmed: boolean // Novo estado para controle da confirmação
+  isOrderConfirmed: boolean
 }
 
 const initialState: CartState = {
@@ -14,7 +14,7 @@ const initialState: CartState = {
   totalItems: 0,
   totalValue: 0,
   isOpen: false,
-  isOrderConfirmed: false // Inicialmente falso
+  isOrderConfirmed: false
 }
 
 const cartSlice = createSlice({

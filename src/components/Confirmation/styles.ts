@@ -7,9 +7,8 @@ export const ConfirmationContainer = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Alinhamento da coluna à esquerda */
+  align-items: flex-start;
   z-index: 2;
-  /* Adicionando alguma margem à esquerda para o conteúdo */
   padding-left: 16px;
 `
 
@@ -17,6 +16,5 @@ export const Text = styled.p`
   font-size: 14px;
   color: ${colors.lightSalmon};
   margin-bottom: 24px;
-  text-align: left; /* Alinhamento do texto à esquerda */
-  /* Remover a propriedade align-items pois não é aplicável a <p> */
+  text-align: left;
 `

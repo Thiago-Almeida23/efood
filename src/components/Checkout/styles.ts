@@ -91,6 +91,6 @@ export const InputRow = styled.div`
   column-gap: 34px;
 
   ${FormGroup} {
-    width: 48%; /* Faz com que CEP e Número ocupem a metade do espaço disponível */
+    width: 48%;
   }
 `
